@@ -7,18 +7,18 @@ const port = 4000
 
 app.use(express.json())
 
+ 
+
+app.get('/', (req,res)=>{
+    res.send("<h1>Welcome to Backend...</h1>")
+})
 
 
-// app.get('/', (req,res)=>{
-//     res.send("<h1>Welcome to Backend...</h1>")
-// })
 
 
-
-
-// app.get('/about', (req,res)=>{
-//     res.send('<h1>This is About Page</h1>')
-// })
+app.get('/about', (req,res)=>{
+    res.send('<h1>This is About Page</h1>')
+})
 
 
 
@@ -41,39 +41,81 @@ app.use(express.json())
 // ]
 
 
-let students = ['ankit', 'Rahul', 'Priya']
+let students = ['Ankit', 'Rahul', 'Priya']
 
  
-app.get('/getStudents', (req,res)=>{
-    res.json({
-        data:students,
-        success:true,
-        message: 'data fetched successfully'
+// get  operation...........
+
+  
+
+    app.get('/getuser',  (req,res)=>{
+        res.json({
+            success:true,
+            message:'data fetched successfully...',
+            data:students
+        }) 
     })
-})
 
 
-  app.post('/createStudent', (req,res)=>{
-            const name = req.body.name
-            students.push(name)
 
-            console.log(students)
 
-            res.json({
-                success:true,
-                message:'data create successfully',
-                students
-            })
+
+  app.post('/createuser', (req,res)=>{
+        const { name} = req.body
+        console.log(name)
+        students.push(name)
+
+        res.json({
+            success:true,
+            message:'data create successfully....',
+            data: students
+        })
   })
 
-
-//   console.log(students)
-
-
+ 
 // app.put()    
+
+
+// let arr = [12, 30, 40, 60]
+// const index = arr.indexOf(12)
+
+// console.log(index)
+
+
+app.put('/updateuser', (req,res)=>{
+    
+
+    const{name, newName} = req.body
+
+    let index = students.indexOf(name)
+
+    students[index] = newName
+
+    res.json({
+        success:true,
+        message:'user updated successfully..',
+        data: students
+    })
+
+})
 
 // app.delete()
 
+app.delete('/deleteuser',  (req,res)=>{
+    const {name} = req.body
+ 
+    const index = students.indexOf(name)
+
+    students.splice(index, 1)
+
+    res.json({ 
+        message:' user deleted successfully...',
+        success:true,
+        data:students
+    })
+})
+
+ 
 
 
 
