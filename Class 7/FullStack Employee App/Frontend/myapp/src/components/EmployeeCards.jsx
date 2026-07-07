@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'
-import { getuser } from '../service/api'
+import {  createuserapi,  getuserapi } from '../service/api'
 
 const EmployeeCards = () => {
   const[users, setUsers] = useState([])
+
+  const[newUser, setNewUser] = useState({
+      name:'',
+      email:'',
+      empId:''
+  })
+
   async function getUserData(){
     try {
-      const response = await axios.get(getuser)
+      const response = await axios.get(getuserapi)
       console.log(response.data.user )
 
       setUsers(response.data.user)
@@ -20,15 +27,48 @@ const EmployeeCards = () => {
   useEffect(()=>{
     getUserData()
   },[])
+
+
+  function changeHandler(e){
+
+      let {name, value} = e.target
+   
+
+      setNewUser((preItem)=>{
+        return {...preItem, [name]:value}
+      })
+
+  }
+
+
+    async function createUser(){
+      try {
+        const response = await axios.post(createuserapi, newUser )
+        console.log(response)
+        getUserData()
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+
+  function submitHandler(e){
+    e.preventDefault()
+    // console.log(e)
+    createUser()
+    // console.log(newUser)
+
+
+  }
   
   return (
     <div>
         <h1>Employee System App</h1>
-        <form>
-            <input placeholder='Name'/><br/>
-            <input placeholder='Email'/><br/>
-            <input placeholder='Emp. Id'/><br/>
-            <button>Sumbit</button>
+        <form onSubmit={submitHandler}>
+            <input onChange={changeHandler} name='name' placeholder='Name'/><br/>
+            <input  onChange={changeHandler} name='email' placeholder='Email'/><br/>
+            <input  onChange={changeHandler} name='empId' placeholder='Emp. Id'/><br/>
+            <button type='submit'>Sumbit</button>
         </form>
 
 
