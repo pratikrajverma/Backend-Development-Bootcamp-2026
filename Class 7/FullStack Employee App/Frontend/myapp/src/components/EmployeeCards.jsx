@@ -4,7 +4,7 @@ import axios from 'axios'
 import {  createuserapi,  deleteuserapi,  getuserapi , updateuserapi} from '../service/api'
 
 const EmployeeCards = () => {
-  const[users, setUsers] = useState([])
+  const[users, setUsers] = useState([])  
 
   const[newUser, setNewUser] = useState({
       name:'',
@@ -20,29 +20,26 @@ const EmployeeCards = () => {
   async function getUserData(){
     try {
       const response = await axios.get(getuserapi)
-      console.log(response.data.user )
-
-      setUsers(response.data.user)
-      
+      console.log(response.data.user)
+        setUsers(response.data.user)
     } catch (error) {
       console.log(error)
     }
   }
-
+  
   useEffect(()=>{
     getUserData()
   },[])
 
+    function changeHandler(e){
 
-  function changeHandler(e){
+        let {name, value} = e.target
 
-      let {name, value} = e.target
-      setNewUser((preItem)=>{
-        return {...preItem, [name]:value}
-      })
+        setNewUser((preItem)=>{
+          return {...preItem, [name]:value}
+        })
 
-  }
-
+    }
 
     async function createUser(){
       try {
@@ -75,6 +72,12 @@ const EmployeeCards = () => {
    }
     // console.log(newUser)
 
+    setNewUser({
+        name:'',
+        email:'',
+        empId:'',
+    })
+
 
   }
 
@@ -103,9 +106,9 @@ const EmployeeCards = () => {
     <div>
         <h1>Employee System App</h1>
         <form onSubmit={submitHandler}>
-            <input onChange={changeHandler} name='name' placeholder='Name'/><br/>
-            <input  onChange={changeHandler} name='email' placeholder='Email'/><br/>
-            <input  onChange={changeHandler} name='empId' placeholder='Emp. Id'/><br/>
+            <input value={newUser.name}  onChange={changeHandler} name='name' placeholder='Name'/><br/>
+            <input value={newUser.email}  onChange={changeHandler} name='email' placeholder='Email'/><br/>
+            <input value={newUser.empId}  onChange={changeHandler} name='empId' placeholder='Emp. Id'/><br/>
             <button type='submit'>{isEdit ? 'Update' : 'Create'}</button>
         </form>
         <div>
