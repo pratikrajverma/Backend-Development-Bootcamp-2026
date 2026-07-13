@@ -108,18 +108,6 @@ const login = async (req, res) => {
 
 
 
-let students = ['ankit', 'rahul', 'priya']
-
-
-
-const getuser = async (req, res) => {
-    try {
-        res.send(students)
-    } catch (error) {
-
-    }
-}
-
 
 
 
