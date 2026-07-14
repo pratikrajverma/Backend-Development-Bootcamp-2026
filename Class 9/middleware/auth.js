@@ -3,10 +3,10 @@ import User from '../models/user.js'
 
 const auth = async(req , res, next)=>{
     try {
-        
-        // let token = req.body.token 
-
+    
         let token = req.headers.authorization?.split(' ')[1]
+        // console.log(' token', token)
+
 
         if(!token){
             return res.json({
@@ -16,7 +16,7 @@ const auth = async(req , res, next)=>{
 
         let payload = await jsonwebtoken.verify(token, 'studentKey')
 
-        console.log(payload.userid)
+        // console.log(payload.userid)
 
         req.userid = payload.userid
     
