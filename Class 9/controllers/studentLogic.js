@@ -13,6 +13,19 @@ const getuser = async (req, res) => {
     }
 }
 
-export { getuser }
+const getteacher = async(req,res)=>{
+    try {
+
+        let teacher = ['Rajesh', 'Nandan', 'Pankaj']
+
+
+        res.send(teacher)
+        
+    } catch (error) {
+        
+    }
+}
+
+export { getuser , getteacher}
 
 

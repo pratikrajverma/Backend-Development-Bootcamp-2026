@@ -25,7 +25,26 @@ const auth = async(req , res, next)=>{
 }
 
 
+const checkTeacherRole = async(req,res,next)=>{
+    try {
+    let userid = req.userid
+    let user = await User.findById(userid)
+
+    const  role = user.role
+
+    if(role != 'Teacher'){
+        return res.status(401).json({
+            success:false,
+            message:'you are not teacher'
+        })
+    }
+
+    next()
+    } catch (error) {
+            console.log(error)
+    }
+}
  
 
 
-export { auth  }
+export { auth  , checkTeacherRole}
