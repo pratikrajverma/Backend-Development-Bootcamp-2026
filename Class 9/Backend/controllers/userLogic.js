@@ -2,7 +2,7 @@ import User from "../models/user.js";
 import jsonwebtoken from 'jsonwebtoken'
 
 import bcrypt from 'bcrypt'
-
+ 
 const signup = async (req, res) => {
     try {
         let { name, email, password, role } = req.body
@@ -108,12 +108,6 @@ const login = async (req, res) => {
         })
     }
 }
-
-
-
-
-
-
 
 
 export { signup, login }
